@@ -18,13 +18,11 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
       - name: Install Android SDK components (API 36, build-tools 36.1.0, NDK r29)
         run: |
-          yes | sdkmanager --licenses > /dev/null || true
-          sdkmanager "platforms;android-36" "build-tools;36.1.0" "platform-tools" "ndk;29.0.14206865"
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          yes | "$SDKMANAGER" --licenses > /dev/null || true
+          "$SDKMANAGER" "platforms;android-36" "build-tools;36.1.0" "platform-tools" "ndk;29.0.14206865"
 
       - name: Download Godot 4.6.3
         run: |
